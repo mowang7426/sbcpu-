@@ -3,7 +3,7 @@
 #import <mach-o/dyld.h>
 #import <objc/runtime.h>
 #import <substrate.h>
-#import "SBCPURootlessCompat.h"
+#include <libroot.h>
 #define S(str) [NSString stringWithUTF8String:(str)]
 
 // Control Center 注册桥：
@@ -18,7 +18,7 @@ static BOOL gRepositoryHooksInstalled = NO;
 static BOOL gExternalCCSupportDetected = NO;
 
 static NSString *SBCPURootHideRoot(void) {
-    const char *path = jbroot("/");
+    const char *path = JBROOT_PATH("/");
     if (!path) return @"";
     NSString *s = [NSString stringWithUTF8String:path];
     if ([s hasSuffix:@"/"]) s = [s substringToIndex:s.length - 1];
@@ -26,7 +26,7 @@ static NSString *SBCPURootHideRoot(void) {
 }
 
 static NSString *SBCPUJBRootPathForRootFSPath(const char *rootFSPath) {
-    const char *resolved = jbroot(rootFSPath);
+    const char *resolved = JBROOT_PATH(rootFSPath);
     if (resolved) {
         NSString *s = [NSString stringWithUTF8String:resolved];
         if (s.length > 0) return s;
