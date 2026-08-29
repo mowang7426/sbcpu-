@@ -174,7 +174,7 @@ static void SBCPUFloatingWriteEnabled(BOOL enabled) {
 
 - (void)updateState {
     BOOL enabled = SBCPUFloatingReadEnabled();
-    self.title = enabled ? @"SBCPUFloating" : S("SBCPUFloating 已关闭");
+    self.title = enabled ? @"SBCPUFloating" : @"SBCPUFloating 已关闭";
 
     if ([self respondsToSelector:@selector(setSelected:)]) {
         [self setSelected:enabled];
